@@ -1,0 +1,39 @@
+# This file contains metadata for your plugin. Since 
+# version 2.0 of QGIS this is the proper way to supply 
+# information about a plugin. The old method of 
+# embedding metadata in __init__.py will 
+# is no longer supported since version 2.0.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=Pegel Online Reader
+qgisMinimumVersion=2.8
+description=Plugin lädt Daten zu Stationen und Wasserständen über die REST-Schnittstelle von Pegelonline
+version=0.1
+author=amr, Universität Trier
+email=amr@nirvana.org
+
+about=Plugin lädt Daten zu Stationen und Wasserständen über die REST-Schnittstelle von Pegelonline. Die Stationen werden als Punkt-Layer in QGIS angezeigt, die Daten in einer Sqlite-Datenbank gespeichert.
+
+tracker=http://nobugs.org/
+repository=http://norepo.org/
+# End of mandatory metadata
+
+# Recommended items:
+
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=python
+
+homepage=http://homepage
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
