@@ -252,7 +252,6 @@ class PegelOnline:
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
 
-
     def makeEvents(self):
         self.dockwidget.pbStationsLoad.clicked.connect(self.doStationsLoad)
         self.dockwidget.pbStationsMap.clicked.connect(self.doStationsMap)
@@ -268,9 +267,7 @@ class PegelOnline:
         self.dockwidget.pbTimelineZoom.clicked.connect(self.doTimelineZoom)
         self.dockwidget.pbChangeCrs.clicked.connect(self.doChangeCrs)
 
-
     def doStationsLoad(self):
-        """Download stations data from Pegel Online"""
         print "Info: Calling doStationLoad"
         self.stations.download_stations()
 
@@ -324,5 +321,3 @@ class PegelOnline:
     def doChangeCrs(self):
         print "Info: Calling doChangeCrs"
         self.os_map.change_osm_crs()
-
-
