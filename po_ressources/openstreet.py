@@ -24,7 +24,7 @@ class PoOpenStreetMap(object):
         # get current crs
         self.i_face.mapCanvas().mapRenderer().setProjectionsEnabled(True)
 
-    def change_to_osm_crs(self):
+    def change_osm_crs(self):
         """
         Switch between project CRS and OSM layer CRS so that we can look at the
         layer without it being distorted

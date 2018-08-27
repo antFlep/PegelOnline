@@ -49,7 +49,7 @@ class PoTimeline(object):
             self.app = QApplication(sys.argv)
         self.label = QLabel()
 
-    def down_time_pic(self, name=None):
+    def down_timeline_pic(self, name=None):
         """
         Download measurement picture for the station currently shown in the combobox
         and display it in a QLabel
@@ -82,7 +82,7 @@ class PoTimeline(object):
         if self.test:
             self.app.exec_()
 
-    def down_station(self, name=None):
+    def down_station_dialog(self, name=None):
         """
         Export timestamp and value data for the currently selected station
         in the combobox to a csv file using a file dialog
@@ -163,4 +163,4 @@ if __name__ == '__main__':
     # Test displaying TimeLine picture
     timeline.down_time_pic('BONN')
     # Test downloading Timeline values
-    timeline.down_station('BONN')
+    timeline.down_station_dialog('BONN')

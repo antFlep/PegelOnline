@@ -300,7 +300,7 @@ class PegelOnline:
 
     def doTimelineExport(self):
         print "Info: Calling doTimelineExport"
-        self.timeline.down_station()
+        self.timeline.down_station_dialog()
 
     def doTimelineZoom(self):
         print "Info: Calling doTimelineZoom"
@@ -323,6 +323,6 @@ class PegelOnline:
 
     def doChangeCrs(self):
         print "Info: Calling doChangeCrs"
-        self.os_map.change_to_osm_crs()
+        self.os_map.change_osm_crs()
 
 
