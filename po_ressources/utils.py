@@ -1,6 +1,5 @@
+from qgis.core import *
 from PyQt4.QtGui import QProgressBar
-from qgis.core import QgsVectorLayer, QgsMapLayerRegistry
-
 
 def remove_layer(layer_name, i_face):
     """
@@ -11,8 +10,23 @@ def remove_layer(layer_name, i_face):
     """
 
     for layer in i_face.mapCanvas().layers():
-        if type(layer) == QgsVectorLayer and layer.name() == layer_name:
+        if (type(layer) == QgsVectorLayer or type(layer) == QgsRasterLayer) and layer.name() == layer_name:
             QgsMapLayerRegistry.instance().removeMapLayer(layer.id())
+
+
+def get_layer(layer_name, i_face):
+    """
+    Searches a layer with the proviced name and returns the first one found
+
+    :param layer_name: name of layer we are searching for
+    :param i_face: Name of iface that will be searched
+    :return: First layer with the provided name
+    """
+
+    for layer in i_face.mapCanvas().layers():
+        if (type(layer) == QgsVectorLayer or type(layer) == QgsRasterLayer) and layer.name() == layer_name:
+            return layer
+    return None
 
 
 def show_progress(i_face, msg):

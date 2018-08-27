@@ -1,7 +1,5 @@
 # coding=utf-8
-
 from StringIO import StringIO
-
 import os
 import gzip
 import urllib2

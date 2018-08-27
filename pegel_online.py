@@ -34,6 +34,7 @@ from po_ressources.database import PoDB
 from po_ressources.stations import PoStations
 from po_ressources.currentw import PoCurrentW
 from po_ressources.timeline import PoTimeline
+from po_ressources.openstreet import PoOpenStreetMap
 
 
 class PegelOnline:
@@ -47,6 +48,7 @@ class PegelOnline:
             application at run time.
         :type iface: QgisInterface
         """
+
         # Save reference to the QGIS interface
         self.iface = iface
 
@@ -54,6 +56,7 @@ class PegelOnline:
         self.stations = None
         self.currentw = None
         self.timeline = None
+        self.os_map = None
 
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
@@ -239,6 +242,7 @@ class PegelOnline:
                 self.stations = PoStations(self.db, self.iface)
                 self.currentw = PoCurrentW(self.db, self.iface, self.dockwidget)
                 self.timeline = PoTimeline(self.iface, self.dockwidget)
+                self.os_map = PoOpenStreetMap(self.iface, self.dockwidget)
 
             # connect to provide cleanup on closing of dockwidget
             self.dockwidget.closingPlugin.connect(self.onClosePlugin)
@@ -260,6 +264,9 @@ class PegelOnline:
         self.dockwidget.pbTimelineExport.clicked.connect(self.doTimelineExport)
         self.dockwidget.pbCleanDb.clicked.connect(self.doCleanDb)
         self.dockwidget.pbRemoveLayers.clicked.connect(self.doRemoveLayers)
+        self.dockwidget.pbOsmLoad.clicked.connect(self.doOsmLoad)
+        self.dockwidget.pbTimelineZoom.clicked.connect(self.doTimelineZoom)
+        self.dockwidget.pbChangeCrs.clicked.connect(self.doChangeCrs)
 
 
     def doStationsLoad(self):
@@ -295,6 +302,10 @@ class PegelOnline:
         print "Info: Calling doTimelineExport"
         self.timeline.down_station()
 
+    def doTimelineZoom(self):
+        print "Info: Calling doTimelineZoom"
+        self.timeline.zoom_to_station()
+
     def doCleanDb(self):
         print "Info: Calling doCleanDb"
         self.db.clean_table('poStation')
@@ -304,5 +315,14 @@ class PegelOnline:
         print "Info: Calling doRemoveLayers"
         self.stations.remove_layer()
         self.currentw.remove_layer()
+        self.os_map.remove_layer()
+
+    def doOsmLoad(self):
+        print "Info: Calling doOsmLoad"
+        self.os_map.load_osm_wsm()
+
+    def doChangeCrs(self):
+        print "Info: Calling doChangeCrs"
+        self.os_map.change_to_osm_crs()
 
 

@@ -1,6 +1,9 @@
-import urlreader02 as urlreader
-import sys
+from qgis.core import *
+from qgis.gui import QgsMapCanvas, QgsGenericProjectionSelector
 from PyQt4.QtGui import *
+import urlreader02 as urlreader
+import utils
+import sys
 
 
 def show_image(img_data, my_label):
@@ -11,6 +14,14 @@ def show_image(img_data, my_label):
 
 
 def get_data_table(json_data, columns=[]):
+    """
+    Provide table from json_data, containing data of the provided columns
+
+    :param json_data: JSON data to be parsed
+    :param columns: field of data that we want to be returned
+    :return: table of parsed data
+    """
+
     table = []
     for st in json_data:
         row = []
@@ -32,7 +43,7 @@ class PoTimeline(object):
         """
 
         self.i_face = i_face
-        self.gui = gui
+        self.c_box = gui.cboxTimelineSelect
         self.test = test
         if test:
             self.app = QApplication(sys.argv)
@@ -48,13 +59,14 @@ class PoTimeline(object):
 
         # Testing: use name instead of the cbox entry
         if not self.test:
-            name = self.gui.cboxTimelineSelect.currentText()
+            name = self.c_box.currentText()
 
         # Clear label content
         self.label.clear()
 
         if name:
-            url = 'http://www.pegelonline.wsv.de/webservices/rest-api/v2/stations/%s/W/measurements.png?start=P15D' % name
+            url = 'http://www.pegelonline.wsv.de/webservices/rest-api/v2/stations/%s/W/measurements.png?start=P15D'\
+                  % name
             # Download image and show label
             display_data = urlreader.get_data_response(urlreader.mask_url_string(url))
             self.label.setWindowTitle(name + ' Timeline')
@@ -76,12 +88,11 @@ class PoTimeline(object):
         in the combobox to a csv file using a file dialog
 
         :param name: optional will only be used when testing
-        :return:
         """
 
         # Testing: use name instead of the cbox entry
         if not self.test:
-            name = unicode(self.gui.cboxTimelineSelect.currentText())
+            name = unicode(self.c_box.currentText())
 
         if name:
             url = 'http://www.pegelonline.wsv.de/webservices/rest-api/v2/stations/%s/W/measurements.json' % name
@@ -102,11 +113,46 @@ class PoTimeline(object):
                 for row in table:
                     csv_row = ";".join(str(e) for e in row)
                     f.write(csv_row + '\n')
-
                 f.close()
         else:
             # Case nothing was selected
             msg = 'Nothing selected, please select a station you want to see save the data of.'
+            self.i_face.messageBar().pushMessage('Noting selected', msg, level=0, duration=3)
+
+    def zoom_to_station(self):
+        """
+        Zooms to the currently selected station in the combobox,
+        bounding box of the station will transformed to project CRS,
+        so that we do not zoom to some random place
+        """
+
+        station = self.c_box.currentText()
+
+        if station:
+            layer = utils.get_layer("CurrentW", self.i_face)
+            if layer:
+                expr = """"shortname" ILIKE '%s'""" % station
+                expr = QgsExpression(expr)
+
+                sel = layer.getFeatures(QgsFeatureRequest(expr))
+                ids = [i.id() for i in sel]
+                layer.setSelectedFeatures(ids)
+
+                # Our coordinates are WGS84 to make sure that if the current project is changes
+                # the coordinate system  and everything our bounding box still works, we need to
+                # convert our coordinates to whatever the project uses:
+
+                crs_src = QgsCoordinateReferenceSystem(4326)
+                crs_des = self.i_face.mapCanvas().mapSettings().destinationCrs()
+                xform = QgsCoordinateTransform(crs_src, crs_des)
+
+                box = layer.boundingBoxOfSelected()
+                box = xform.transform(box)
+                self.i_face.mapCanvas().setExtent(box)
+                self.i_face.mapCanvas().refresh()
+        else:
+            # Case nothing was selected
+            msg = 'Nothing selected, please select a station you want to zoom to.'
             self.i_face.messageBar().pushMessage('Noting selected', msg, level=0, duration=3)
 
 

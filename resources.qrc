@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/PegelOnline" >
-        <file>icon.png</file>
-    </qresource>
+  <qresource prefix="newPrefix">
+    <file>C:/Users/fa529/Desktop/pegelonline.png</file>
+  </qresource>
 </RCC>

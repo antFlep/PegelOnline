@@ -15,35 +15,7 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="17" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="pbCleanDb">
-        <property name="text">
-         <string>Clean Database Tables</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pbRemoveLayers">
-        <property name="text">
-         <string>Remove Pegel-Online Layers</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="16" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>CleanUp</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
+    <item row="4" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="pbStationsLoad">
@@ -68,14 +40,14 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
+    <item row="14" column="0">
+     <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>Stations</string>
+       <string>&lt;b&gt;Time Line&lt;/b&gt;</string>
       </property>
      </widget>
     </item>
-    <item row="6" column="0">
+    <item row="9" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="pbCurrentLoad">
@@ -100,22 +72,43 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>&lt;b&gt;Stations&lt;/b&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Levels</string>
+       <string>&lt;b&gt;Levels&lt;/b&gt;</string>
       </property>
      </widget>
     </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="label_3">
+    <item row="1" column="0">
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="0">
+     <widget class="QLabel" name="label_5">
       <property name="text">
-       <string>Time Line</string>
+       <string>&lt;b&gt;OpenStreetMap&lt;/b&gt;</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="0">
+    <item row="18" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="pbTimelineZoom">
+        <property name="text">
+         <string>Zoom To Station</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QPushButton" name="pbTimelinePNG">
         <property name="text">
@@ -132,26 +125,82 @@
       </item>
      </layout>
     </item>
-    <item row="15" column="0">
+    <item row="20" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QPushButton" name="pbOsmLoad">
+        <property name="text">
+         <string>Load Map</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbChangeCrs">
+        <property name="text">
+         <string>  Change CRS To OSM CRS   </string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="22" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>&lt;b&gt;CleanUp&lt;/b&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="0">
      <widget class="Line" name="line">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="14" column="0">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
+    <item row="23" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="pbCleanDb">
+        <property name="text">
+         <string>Clean Database Tables</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbRemoveLayers">
+        <property name="text">
+         <string>Remove Pegel-Online Layers</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="12" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item row="15" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QComboBox" name="cboxTimelineSelect"/>
       </item>
      </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Management of Pegelonline data to station and water levels in QGIS</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

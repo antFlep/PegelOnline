@@ -1,11 +1,8 @@
-import urlreader02 as urlreader
-
-from qgis.core import QgsVectorLayer, QgsMapLayerRegistry, QgsSymbolV2, \
-    QgsRendererCategoryV2, QgsCategorizedSymbolRendererV2
+from qgis.core import *
 from pyspatialite import dbapi2 as db
 from database import PoDB
 from PyQt4.QtGui import QColor
-
+import urlreader02 as urlreader
 import utils
 
 
@@ -59,12 +56,12 @@ class PoCurrentW(object):
         and display them in the combobox
         """
 
-        lay = self.i_face.activeLayer()
+        # Can't use activeLayer() cause if I have stations selected,
+        # and select another layer it creates an error, when zooming to the stations
+        lay = utils.get_layer("CurrentW", self.i_face)
         self.c_box.clear()
 
-        # if len(selected) > 0:
         for feat in lay.selectedFeatures():
-            # shortname is an attribute column of the layer
             self.c_box.addItem(feat['shortname'])
 
     def download_current_w(self):
@@ -136,9 +133,11 @@ class PoCurrentW(object):
             # Change c-box entries depending on what is selected
             lay.selectionChanged.connect(self.do_layer_selection_changed)
         else:
+            # Set layer back to None otherwise show table will display empty table
+            self.layer = None
             if not self.test:
-                msg = "Can't add layer, layer is not valid"
-                self.i_face.messageBar().pushMessage('Noting selected', msg, level=2, duration=3)
+                msg = "to create this layer you need to download the station data before"
+                self.i_face.messageBar().pushMessage('Station Data Missing', msg, level=0, duration=3)
 
     def color_layer(self):
         """

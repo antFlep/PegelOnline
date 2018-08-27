@@ -1,9 +1,7 @@
-import urlreader02 as url_reader
-
-from qgis.core import QgsVectorLayer, QgsDataSourceURI, QgsMapLayerRegistry
+from qgis.core import *
 from database import PoDB
 from pyspatialite import dbapi2 as db
-
+import urlreader02 as url_reader
 import utils
 
 
@@ -37,8 +35,7 @@ def get_data_table(json_data, columns=[]):
             row.append(str_geom)
             table.append(row)
         except KeyError as e:
-            # print 'INFO: Ignoring entry:', st, 'because attribute', e, 'is missing'
-            print "ERROR:", e, "missing"
+            print """INFO: Ignoring entry %s because attribute %s is missing""" % (st['shortname'], e)
     return table
 
 
