@@ -296,7 +296,7 @@ class PegelOnline:
 
     def doTimelinePNG(self):
         print "Info: Calling doTimelinePNG"
-        self.timeline.down_time_pic()
+        self.timeline.down_timeline_pic()
 
     def doTimelineExport(self):
         print "Info: Calling doTimelineExport"
