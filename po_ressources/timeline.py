@@ -43,10 +43,12 @@ class PoTimeline(object):
         """
 
         self.i_face = i_face
-        self.c_box = gui.cboxTimelineSelect
         self.test = test
+
         if test:
             self.app = QApplication(sys.argv)
+        else:
+            self.c_box = gui.cboxTimelineSelect
         self.label = QLabel()
 
     def down_timeline_pic(self, name=None):
@@ -161,6 +163,6 @@ if __name__ == '__main__':
     timeline = PoTimeline(None, None, True)
 
     # Test displaying TimeLine picture
-    timeline.down_time_pic('BONN')
+    timeline.down_timeline_pic('BONN')
     # Test downloading Timeline values
     timeline.down_station_dialog('BONN')
